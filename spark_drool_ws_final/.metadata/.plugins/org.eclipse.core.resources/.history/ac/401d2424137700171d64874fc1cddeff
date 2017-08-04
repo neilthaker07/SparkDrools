@@ -1,0 +1,14 @@
+package sample.engine
+ 
+import sample.engine.DroolTest.Message;
+ 
+rule "Hello World"
+    when
+        m: Message(temperature1 == 35)
+    then
+    	System.out.println("HHHHHHHHHHHHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEE" );
+        System.out.println( m.getTemperature1() );
+        System.out.println( m.getTemperature2() );
+        m.setTemperature1(m.setTemperature1(m.getTemperature1()-10));
+        m.setTemperature2(m.setTemperature2(m.getTemperature2()-10));
+end

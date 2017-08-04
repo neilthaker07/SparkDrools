@@ -1,0 +1,46 @@
+package sample.engine
+ 
+import sample.engine.DroolTest.Message;
+ 
+rule "Temperature Avg"
+    when
+        m: Message( (temperature1 + temperature2) / 2 > 30)
+    then
+    	System.out.println("temperature average" );
+        System.out.println( m.getTemperature1() );
+        System.out.println( m.getTemperature2() );
+        m.setTemperature1(m.getTemperature1() - 10);
+        m.setTemperature2(m.getTemperature2() - 10);
+		update(m);        
+end
+
+
+rule "Temperature"
+    when
+        m: Message( temperature1 < 25)
+    then
+    	System.out.println("temperature" );
+        System.out.println( m.getTemperature1() );
+        m.setTemperature1(m.getTemperature1() + 5);
+		update(m);        
+end
+
+rule "Pressure"
+    when
+        m: Message( pressure > 10)
+    then
+    	System.out.println("pressure" );
+        System.out.println( m.getPressure() );
+        m.setTemperature1(m.getPressure() - 4);
+		update(m);        
+end
+
+rule "Gas"
+    when
+        m: Message( gas > 1)
+    then
+    	System.out.println("gas" );
+        System.out.println( m.getGas() );
+        m.setTemperature1(m.getGas() - 0.5);
+		update(m);        
+end
