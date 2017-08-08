@@ -1,0 +1,39 @@
+package sample.engine
+ 
+import sample.engine.DroolTest.Rules;
+
+rule "Temperature Avg"
+    when
+        m: Rules( (temperature1 + temperature2) / 2 > 30)
+    then
+    	System.out.println("temperature in in" );
+        System.out.println( m.getTemperature1() );
+        System.out.println( m.getTemperature2() );
+        m.setTemperature1(m.getTemperature1() - 10);
+        m.setTemperature2(m.getTemperature2() - 10);
+		update(m);        
+end
+
+rule "Pressure"
+    when
+        m: Rules( pressure1 + pressure2 > 10)
+    then
+    	System.out.println("pressure in in " );
+        System.out.println( m.getPressure1() );
+        System.out.println( m.getPressure2() );
+        m.setPressure1(m.getPressure1() - 1);
+        m.setPressure2(m.getPressure2() - 1);
+		update(m);        
+end
+
+rule "Gas"
+    when
+        m: Rules( gas1 + gas2 > 1)
+    then
+    	System.out.println("gas in in " );
+        System.out.println( m.getGas1() );
+        System.out.println( m.getGas2() );
+        m.setGas1(m.getGas1()-0.3);
+        m.setGas2(m.getGas2()-0.3);
+		update(m);        
+end

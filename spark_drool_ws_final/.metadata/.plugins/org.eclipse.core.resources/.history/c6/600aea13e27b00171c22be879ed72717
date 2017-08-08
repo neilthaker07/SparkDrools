@@ -1,0 +1,20 @@
+// drl file is a rule template
+template header
+// template parameters
+rule
+eventType
+
+package com.rules;
+
+global main.AlertDecision alertDecision;
+
+template "alert"
+// unique rule id
+rule "alert_@{row.rowNumber}"
+when
+    @{eventType}(@{rule})
+then
+    alertDecision.setDoAlert(Boolean.TRUE);
+end
+
+end template

@@ -1,0 +1,123 @@
+package dynamic;
+
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
+import org.drools.template.ObjectDataCompiler;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.StatelessKieSession;
+
+public class SparkRuleEngine 
+{
+	public static void main(String args[]) throws Exception
+	{
+		SparkSession spark = SparkSession.builder().master("local")
+				.appName("Rule Engine")
+				.config("spark.some.config.option", "some-value").getOrCreate();
+		
+		String payload = nodeRedJSONInput();
+		
+		System.out.println("HHHHHHHHHHHHH");
+		System.out.println(payload);
+		int nodeRedTemp = Integer.parseInt(payload);
+		
+		for(int i=1;i<=1;i++)
+		{
+			Dataset<Row> df1 = spark.read().json("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/log"+i+".json");
+			df1.select("TEMPERATURE").show();
+			List frameList = df1.select("TEMPERATURE").collectAsList();
+			String s = frameList.get(2).toString();
+			int logTemperature = (int) Long.parseLong(s.substring(1, s.length()-1)); 
+			
+			OrderEvent orderEvent = new OrderEvent();
+	        orderEvent.setTemperature(logTemperature); // SET INPUT LOG TEMPERATURE
+	
+	        Rule highValueOrderWidgetsIncRule = new Rule();
+	
+	        Condition highValueOrderCondition = new Condition();
+	        highValueOrderCondition.setField("temperature");
+	        highValueOrderCondition.setOperator(Condition.Operator.GREATER_THAN);
+	        highValueOrderCondition.setValue(nodeRedTemp);
+	
+	        highValueOrderWidgetsIncRule.setEventType(Rule.eventType.ORDER);
+	        highValueOrderWidgetsIncRule.setConditions(Arrays.asList(highValueOrderCondition));
+	
+			String drl = applyRuleTemplate(orderEvent, highValueOrderWidgetsIncRule); // RULE  TEMPLATE
+			AlertDecision alertDecision = evaluate(drl, orderEvent);
+			//System.out.println(alertDecision.getDoAlert());
+	
+			if (alertDecision.getDoAlert()) 
+			{
+				// do notification
+				System.out.println("ALERT FOR THE TEMPRATURE : "+nodeRedTemp+", Because log temperature is: "+logTemperature);
+			}
+		}
+	}
+
+	 private static AlertDecision evaluate(String drl, OrderEvent event) throws Exception 
+	 {
+        KieServices kieServices = KieServices.Factory.get();
+        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+        kieFileSystem.write("src/main/resources/rule.drl", drl);
+        kieServices.newKieBuilder(kieFileSystem).buildAll();
+
+        KieContainer kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+        StatelessKieSession statelessKieSession = kieContainer.getKieBase().newStatelessKieSession();
+
+        AlertDecision alertDecision = new AlertDecision();
+        statelessKieSession.getGlobals().set("alertDecision", alertDecision);
+        statelessKieSession.execute(event);
+
+        return alertDecision;
+	 }
+
+	private static String applyRuleTemplate(OrderEvent event, Rule rule) throws Exception
+	{
+		Map<String, Object> data = new HashMap<String, Object>();
+		ObjectDataCompiler objectDataCompiler = new ObjectDataCompiler();
+
+		data.put("rule", rule); // Check rule-template.drl : Map refers in .drl file
+		data.put("eventType", event.getClass().getName());
+
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("com/rules/rule-template.drl");
+		return objectDataCompiler.compile(Arrays.asList(data), is);
+	}
+	
+	private static String nodeRedJSONInput() throws Exception
+	{
+		String payload = null;
+		JSONParser parser = new JSONParser();
+		JSONArray jArray = (JSONArray) parser
+				.parse(new FileReader(
+						"/home/neil/.node-red/flows_neil-inspiron-3521.json"));
+	
+		for (Object obj : jArray) 
+		{
+			JSONObject jsonObject = (JSONObject) obj;
+			System.out.println(jsonObject);
+	
+			String id = (String) jsonObject.get("id");
+			if(!id.equals("4f47f2a.261f50c") && !id.equals("bec3915b.0ca4f"))
+			{
+				String topic = (String) jsonObject.get("topic");
+				System.out.println(topic);
+	
+				payload = (String) jsonObject.get("payload");
+				System.out.println(payload);
+			}
+		}
+		return payload;
+	}
+}
