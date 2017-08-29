@@ -7,9 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.TextInputFormat;
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.api.java.JavaPairDStream;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.drools.template.ObjectDataCompiler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,6 +28,8 @@ import org.kie.api.builder.KieFileSystem;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.StatelessKieSession;
 
+import scala.Tuple2;
+
 public class SparkRuleEngine 
 {
 	public static void main(String args[]) throws Exception
@@ -26,23 +37,30 @@ public class SparkRuleEngine
 		SparkSession spark = SparkSession.builder().master("local")
 				.appName("Rule Engine")
 				.config("spark.some.config.option", "some-value").getOrCreate();
-		
-		String payload = nodeRedJSONInput();
-		int nodeRedTemp = Integer.parseInt(payload);
-		
+
 		for(int i=1;i<=10;i++)
 		{
 			Dataset<Row> df1 = spark.read().json("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/log"+i+".json");
-			//df1.select("TEMPERATURE").show();
-			List frameList = df1.select("TEMPERATURE").collectAsList();
-			String s = frameList.get(2).toString();
-			int logTemperature = (int) Long.parseLong(s.substring(1, s.length()-1)); 
+			df1.select("TEMPERATURE").show();
 			
-			droolsProcess(nodeRedTemp, logTemperature);
+			List tempList = df1.select("TEMPERATURE").collectAsList();
+			String s = tempList.get(2).toString();
+			int logTemperature = (int) Long.parseLong(s.substring(1, s.length()-1)); 
+
+			List logList = df1.select("LOG_ID").collectAsList();
+			String l = logList.get(2).toString();
+			int logId = (int) Long.parseLong(l.substring(1, l.length()-1));
+			
+			String payload = nodeRedJSONInput();
+			int nodeRedTemp = Integer.parseInt(payload);
+			
+			droolsProcess(nodeRedTemp, logTemperature, logId);
+			
+			Thread.sleep(30000);
 		}
 	}
 
-	private static void droolsProcess(int nodeRedTemp, int logTemperature) throws Exception 
+	private static void droolsProcess(int nodeRedTemp, int logTemperature, int logId) throws Exception 
 	{
 		OrderEvent orderEvent = new OrderEvent();
 		orderEvent.setTemperature(logTemperature); // SET INPUT LOG TEMPERATURE
@@ -63,11 +81,11 @@ public class SparkRuleEngine
 		if (alertDecision.getDoAlert()) 
 		{
 			// alarm
-			System.out.println("ALERT FOR THE TEMPERATURE : "+nodeRedTemp+", Because log temperature is : "+logTemperature);
+			System.out.println("Alert for log id : "+logId+", because its temperature is "+logTemperature+" and nodered temperature limit is "+nodeRedTemp);
 		}
 	}
 
-	 private static AlertDecision evaluate(String drl, OrderEvent event) throws Exception 
+	 private static AlertDecision evaluate(String drl, OrderEvent orderEvent) throws Exception 
 	 {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
@@ -79,7 +97,7 @@ public class SparkRuleEngine
 
         AlertDecision alertDecision = new AlertDecision();
         statelessKieSession.getGlobals().set("alertDecision", alertDecision);
-        statelessKieSession.execute(event);
+        statelessKieSession.execute(orderEvent);
 
         return alertDecision;
 	 }
@@ -121,3 +139,16 @@ public class SparkRuleEngine
 		return payload;
 	}
 }
+
+class JavaSparkSessionSingleton {
+    private static transient SparkSession instance = null;
+    public static SparkSession getInstance(SparkConf sparkConf) {
+      if (instance == null) {
+        instance = SparkSession
+          .builder()
+          .config(sparkConf)
+          .getOrCreate();
+      }
+      return instance;
+    }
+  }

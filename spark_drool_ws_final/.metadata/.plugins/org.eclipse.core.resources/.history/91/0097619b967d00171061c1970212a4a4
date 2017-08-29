@@ -1,0 +1,231 @@
+package dynamic;
+
+import java.io.FileReader;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.stream.Stream;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.SparkContext;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.function.VoidFunction;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.RowFactory;
+import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
+import org.apache.spark.streaming.Duration;
+import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.api.java.JavaDStream;
+import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
+import org.drools.template.ObjectDataCompiler;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.StatelessKieSession;
+
+import scala.Tuple2;
+
+import com.google.common.base.Function;
+import com.google.common.io.Files;
+import com.thoughtworks.xstream.io.path.Path;
+
+public class SparkRuleEngine 
+{
+	public static void main(String args[]) throws Exception
+	{
+		/*SparkSession spark = SparkSession.builder().master("local")
+				.appName("Rule Engine")
+				.config("spark.some.config.option", "some-value").getOrCreate();
+	*/	//SparkContext sparkContext = new SparkContext();
+		//SparkConf sc = new SparkConf().set("spark.streaming.receiver.writeAheadLog.enable", "false");
+		
+		
+		SparkConf conf = new SparkConf().setMaster("local[2]").setAppName("NetworkWordCount");
+		JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(30000));
+		
+		JavaReceiverInputDStream<String> lines = jssc.socketTextStream("localhost", 9999);
+		
+		JavaDStream<String> trainingData = jssc.textFileStream(
+	                "/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input").cache();
+		
+		
+
+		
+		 //Create JavaDStream<String>
+        JavaDStream<String> msgDataStream = trainingData.map(new Function<Tuple2<String, String>, String>() {
+            @Override
+            public String call(Tuple2<String, String> tuple2) {
+              return tuple2._2();
+            }
+          });
+        
+        //Create JavaRDD<Row>
+        msgDataStream.foreachRDD(new VoidFunction<JavaRDD<String>>() {
+              @Override
+              public void call(JavaRDD<String> rdd) { 
+                  JavaRDD<Row> rowRDD = rdd.map(new Function<String, Row>() {
+                      @Override
+                      public Row call(String msg) {
+                        Row row = RowFactory.create(msg);
+                        return row;
+                      }
+                    });
+        //Create Schema       
+        StructType schema = DataTypes.createStructType(new StructField[] {DataTypes.createStructField("Message", DataTypes.StringType, true)});
+        //Get Spark 2.0 session       
+        SparkSession spark = JavaSparkSessionSingleton.getInstance(rdd.context().getConf());
+        Dataset<Row> msgDataFrame = spark.createDataFrame(rowRDD, schema);
+        msgDataFrame.show();
+              }
+        });
+
+		
+		
+		
+		
+		
+		/*JavaStreamingContext jssc = new JavaStreamingContext(sc, new Duration(30000));
+		JavaDStream<String> trainingData = jssc.textFileStream("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/");
+		*/
+		/*try (Stream<Path> stream = Files.find(Paths.get("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/"), 5,
+	            (path, attr) -> path.getFileName().toString().equals("Myfile.txt") )) 
+	            {
+	        System.out.println(stream.findAny().isPresent());
+	            } catch (IOException e) {
+	        e.printStackTrace();
+	}*/
+		
+	/*	
+		int numberOfReceivers = 3;
+		JavaDStream<MessageAndMetadata> unionStreams = ReceiverLauncher.launch(
+				jssc, props, numberOfReceivers, StorageLevel.MEMORY_ONLY());
+
+		unionStreams.foreachRDD(new Function2<JavaRDD<MessageAndMetadata>, Time, Void>() 
+				{
+					@Override
+					public void call(JavaRDD<MessageAndMetadata> rdd, Time time) throws Exception 
+					{
+						rdd.collect();
+						System.out.println(" Number of records in this batch "+ rdd.count());
+						return null;
+					}
+				});*/
+		
+		for(int i=1;i<=10;i++)
+		{
+			//Dataset<Row> df1 = spark.read().json("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/log"+i+".json");
+			//df1.select("TEMPERATURE").show();
+			
+		/*	Dataset<Row> df1 = spark.read().json("/home/neil/Neil_Work/MS_SJSU/scala_spark_learning/Spark_Scala/git_ws/SparkDrools/logs_red_input/");
+			List tempList = df1.select("TEMPERATURE").collectAsList();
+			String s = tempList.get(2).toString();
+			int logTemperature = (int) Long.parseLong(s.substring(1, s.length()-1)); 
+
+			List logList = df1.select("LOG_ID").collectAsList();
+			String l = logList.get(2).toString();
+			int logId = (int) Long.parseLong(l.substring(1, l.length()-1));
+			
+			String payload = nodeRedJSONInput();
+			int nodeRedTemp = Integer.parseInt(payload);
+			
+			droolsProcess(nodeRedTemp, logTemperature, logId);*/
+			
+			Thread.sleep(30000);
+		}
+		
+		jssc.start();
+		jssc.awaitTermination();
+		
+	}
+
+	private static void droolsProcess(int nodeRedTemp, int logTemperature, int logId) throws Exception 
+	{
+		OrderEvent orderEvent = new OrderEvent();
+		orderEvent.setTemperature(logTemperature); // SET INPUT LOG TEMPERATURE
+
+		Rule highValueOrderWidgetsIncRule = new Rule();
+
+		Condition highValueOrderCondition = new Condition();
+		highValueOrderCondition.setField("temperature");
+		highValueOrderCondition.setOperator(Condition.Operator.GREATER_THAN);
+		highValueOrderCondition.setValue(nodeRedTemp);
+
+     //  highValueOrderWidgetsIncRule.setEventType(Rule.eventType.ORDER);
+		highValueOrderWidgetsIncRule.setConditions(Arrays.asList(highValueOrderCondition));
+
+		String drl = applyRuleTemplate(orderEvent, highValueOrderWidgetsIncRule); // RULE  TEMPLATE
+		AlertDecision alertDecision = evaluate(drl, orderEvent);
+
+		if (alertDecision.getDoAlert()) 
+		{
+			// alarm
+			System.out.println("Alert for log id"+logId+", because its temperature is "+logTemperature+" and nodered temperature limit is "+nodeRedTemp);
+		}
+	}
+
+	 private static AlertDecision evaluate(String drl, OrderEvent orderEvent) throws Exception 
+	 {
+        KieServices kieServices = KieServices.Factory.get();
+        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
+        kieFileSystem.write("src/main/resources/rule.drl", drl);
+        kieServices.newKieBuilder(kieFileSystem).buildAll();
+
+        KieContainer kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+        StatelessKieSession statelessKieSession = kieContainer.getKieBase().newStatelessKieSession();
+
+        AlertDecision alertDecision = new AlertDecision();
+        statelessKieSession.getGlobals().set("alertDecision", alertDecision);
+        statelessKieSession.execute(orderEvent);
+
+        return alertDecision;
+	 }
+
+	private static String applyRuleTemplate(OrderEvent event, Rule rule) throws Exception
+	{
+		Map<String, Object> data = new HashMap<String, Object>();
+		ObjectDataCompiler objectDataCompiler = new ObjectDataCompiler();
+
+		data.put("rule", rule); // Check rule-template.drl : Map refers in .drl file
+		data.put("eventType", event.getClass().getName());
+
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("com/rules/rule-template.drl");
+		return objectDataCompiler.compile(Arrays.asList(data), is);
+	}
+	
+	private static String nodeRedJSONInput() throws Exception
+	{
+		String payload = null;
+		JSONParser parser = new JSONParser();
+		JSONArray jArray = (JSONArray) parser
+				.parse(new FileReader("/home/neil/.node-red/flows_neil-inspiron-3521.json"));
+	
+		for (Object obj : jArray) 
+		{
+			JSONObject jsonObject = (JSONObject) obj;
+			//System.out.println(jsonObject);
+	
+			String id = (String) jsonObject.get("id");
+			if(!id.equals("4f47f2a.261f50c") && !id.equals("bec3915b.0ca4f"))
+			{
+				String topic = (String) jsonObject.get("topic");
+				//System.out.println(topic);
+	
+				payload = (String) jsonObject.get("payload");
+				//System.out.println(payload);
+			}
+		}
+		return payload;
+	}
+}

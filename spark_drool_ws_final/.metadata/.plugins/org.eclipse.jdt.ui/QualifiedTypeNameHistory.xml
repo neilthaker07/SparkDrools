@@ -1,2 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="dynamic.DroolTest"/>
+<fullyQualifiedTypeName name="dynamic.SparkRuleEngine"/>
+<fullyQualifiedTypeName name="org.json.simple.JSONArray"/>
+<fullyQualifiedTypeName name="org.json.simple.parser.JSONParser"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="dynamic.OrderEvent"/>
+<fullyQualifiedTypeName name="org.kie.api.builder.KieFileSystem"/>
+<fullyQualifiedTypeName name="org.kie.api.KieServices"/>
+<fullyQualifiedTypeName name="org.kie.api.runtime.KieContainer"/>
+<fullyQualifiedTypeName name="org.kie.api.runtime.StatelessKieSession"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.Long"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.Duration"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.api.java.JavaDStream"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.api.java.JavaReceiverInputDStream"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.util.Queue"/>
+<fullyQualifiedTypeName name="java.util.stream.Stream"/>
+<fullyQualifiedTypeName name="com.thoughtworks.xstream.io.path.Path"/>
+<fullyQualifiedTypeName name="com.google.common.io.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="org.apache.spark.SparkContext"/>
+<fullyQualifiedTypeName name="org.apache.spark.api.java.JavaRDD"/>
+<fullyQualifiedTypeName name="org.apache.spark.api.java.function.VoidFunction"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.RowFactory"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.types.StructType"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.types.DataTypes"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.types.StructField"/>
+<fullyQualifiedTypeName name="com.google.common.base.Function"/>
+<fullyQualifiedTypeName name="org.apache.spark.api.java.function.Function"/>
+<fullyQualifiedTypeName name="org.apache.spark.SparkConf"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.api.java.JavaStreamingContext"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.Durations"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapred.TextInputFormat"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.LongWritable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.Text"/>
+<fullyQualifiedTypeName name="org.apache.spark.streaming.api.java.JavaPairDStream"/>
+<fullyQualifiedTypeName name="org.apache.spark.api.java.JavaSparkContext"/>
+<fullyQualifiedTypeName name="org.apache.spark.api.java.JavaPairRDD"/>
+<fullyQualifiedTypeName name="scala.Tuple2"/>
+</qualifiedTypeNameHistroy>

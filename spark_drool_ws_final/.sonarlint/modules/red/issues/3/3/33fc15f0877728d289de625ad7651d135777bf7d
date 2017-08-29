@@ -1,0 +1,53 @@
+
+‡squid:UselessImportCheck"ARemove this unused import 'org.apache.spark.streaming.Durations'.(ª´è®úÿÿÿÿ8ŠÄ“èÜ+HÿLRMINORZ
+CODE_SMELL
+esquid:S2065"0Remove the "transient" modifier from this field.(àÍ…´8ÆñøÖÜ+HŞJRMINORZ
+CODE_SMELL
+„squid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(”úç€ùÿÿÿÿ8š•—ÖÜ+H£HRMAJORZ
+CODE_SMELL
+„squid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(»€ßøÿÿÿÿ8š•—ÖÜ+H¤HRMAJORZ
+CODE_SMELL
+ssquid:S1854„"9Remove this useless assignment to local variable "topic".(ıà€Ğşÿÿÿÿ8š•—ÖÜ+H¬HRMAJORZ
+CODE_SMELL
+qsquid:S1197#"8Move the array designator from the variable to the type.(íä¸üÿÿÿÿ8‡ä¿úÛ+H–CRMINORZ
+CODE_SMELL
+¿%squid:RedundantThrowsDeclarationCheckX"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(µ¯„Êÿÿÿÿÿ8š•—ÖÜ+HHRMINORZ
+CODE_SMELL
+squid:S2293k"YReplace the type specification in this constructor call with the diamond operator ("<>").(®Ø‡Ú8š•—ÖÜ+H HRMINORZ
+CODE_SMELL
+dsquid:S1481„"*Remove this unused "topic" local variable.(ıà€Ğşÿÿÿÿ8š•—ÖÜ+H¨HRMINORZ
+CODE_SMELL
+tsquid:S1118":Add a private constructor to hide the implicit public one.(Æ‹†•üÿÿÿÿ8ÆñøÖÜ+HàJRMAJORZ
+CODE_SMELL
+l
+squid:S106T"9Replace this use of System.out or System.err by a logger.(ŒÙèƒ8š•—ÖÜ+HäMRMAJORZ
+CODE_SMELL
+{squid:S00112i"FDefine and throw a dedicated exception instead of using a generic one.(»¸Ü·8š•—ÖÜ+H©HRMAJORZ
+CODE_SMELL
+€squid:S00112X"FDefine and throw a dedicated exception instead of using a generic one.(µ¯„Êÿÿÿÿÿ8š•—ÖÜ+H«HRMAJORZ
+CODE_SMELL
+{squid:S00112u"FDefine and throw a dedicated exception instead of using a generic one.(¡‹àå8š•—ÖÜ+HªHRMAJORZ
+CODE_SMELL
+€squid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(‰¬³Ş8š•—ÖÜ+H¥HRMAJORZ
+CODE_SMELL
+º%squid:RedundantThrowsDeclarationChecki"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(»¸Ü·8š•—ÖÜ+HŸHRMINORZ
+CODE_SMELL
+€squid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(™ËÆ‰8š•—ÖÜ+H¦HRMAJORZ
+CODE_SMELL
+‹squid:UselessImportCheck"ERemove this unused import 'org.apache.hadoop.mapred.TextInputFormat'.(ÄÒŒåüÿÿÿÿ8ÚëùèÜ+HåMRMINORZ
+CODE_SMELL
+•squid:UselessImportCheck"URemove this unused import 'org.apache.spark.streaming.api.java.JavaStreamingContext'.(¥×£8ÚëùèÜ+HæMRMINORZ
+CODE_SMELL
+ˆsquid:UselessImportCheck"GRemove this unused import 'org.apache.spark.api.java.JavaSparkContext'.(İ“„…8ÚëùèÜ+HçMRMINORZ
+CODE_SMELL
+wsquid:UselessImportCheck"6Remove this unused import 'org.apache.hadoop.io.Text'.(»°ß»8ÚëùèÜ+HèMRMINORZ
+CODE_SMELL
+squid:UselessImportCheck
+">Remove this unused import 'org.apache.hadoop.io.LongWritable'.(óÊ¼Š8ÚëùèÜ+HéMRMINORZ
+CODE_SMELL
+‘squid:UselessImportCheck"PRemove this unused import 'org.apache.spark.streaming.api.java.JavaPairDStream'.(Ü¯»ù8ÚëùèÜ+HêMRMINORZ
+CODE_SMELL
+osquid:UselessImportCheck")Remove this unused import 'scala.Tuple2'.(ÁÁóµùÿÿÿÿ8ÚëùèÜ+HëMRMINORZ
+CODE_SMELL
+ˆsquid:UselessImportCheck"BRemove this unused import 'org.apache.spark.api.java.JavaPairRDD'.(¿«µäıÿÿÿÿ8ÚëùèÜ+HìMRMINORZ
+CODE_SMELL

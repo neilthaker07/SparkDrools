@@ -9,3 +9,5 @@ M
 src/main/resources/MyRule.drl,c/2/c24284505eac3ab524824bf0586608403d7e1063
 W
 'src/main/resources/META-INF/kmodule.xml,3/1/31a2b353f91d7a0d604d207ec858c0ac0fdd5ded
+W
+'src/main/resources/maven/pom.properties,f/9/f95205a8e04d7dcfc6b9a93ecef367b30bebda32

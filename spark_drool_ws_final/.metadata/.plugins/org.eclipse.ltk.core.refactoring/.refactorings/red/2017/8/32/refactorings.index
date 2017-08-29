@@ -10,3 +10,6 @@
 1502217414710	Rename type 'OrderEvent'
 1502217444900	Rename type 'Facts'
 1502218503903	Extract method 'droolsProcess'
+1502246470323	Rename local variable 'event'
+1502306728875	Rename local variable 'frameList'
+1502306796509	Rename local variable 'logId'

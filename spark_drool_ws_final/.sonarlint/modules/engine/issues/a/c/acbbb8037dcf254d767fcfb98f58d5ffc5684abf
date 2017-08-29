@@ -1,55 +1,55 @@
 
-Usquid:S1604l"(Make this anonymous inner class a lambda(ğ“ô‚HÄ-RMAJORZ
+ˆsquid:S1149$"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(§Õ‘ÚÿÿÿÿÿH….RMAJORZ
+CODE_SMELL
+Vsquid:S1604„"(Make this anonymous inner class a lambda(›òªßHù-RMAJORZ
 CODE_SMELL
 j
-squid:S106Y"9Replace this use of System.out or System.err by a logger.(—†“öùÿÿÿÿHÅ-RMAJORZ
+squid:S106M"9Replace this use of System.out or System.err by a logger.(‚æı–øÿÿÿÿHô-RMAJORZ
 CODE_SMELL
-Zsquid:S1604t"(Make this anonymous inner class a lambda(óÃˆ•úÿÿÿÿHÆ-RMAJORZ
+j
+squid:S106Y"9Replace this use of System.out or System.err by a logger.(—†“öùÿÿÿÿHş-RMAJORZ
 CODE_SMELL
-ˆsquid:S1149$"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(§Õ‘ÚÿÿÿÿÿHÇ-RMAJORZ
+jsquid:S1197"8Move the array designator from the variable to the type.(º ìıÿÿÿÿH.RMINORZ
+CODE_SMELL
+[squid:S1604Œ"(Make this anonymous inner class a lambda(‰†÷üÿÿÿÿH€.RMAJORZ
+CODE_SMELL
+Zsquid:S1604|"(Make this anonymous inner class a lambda(İËúßúÿÿÿÿHğ-RMAJORZ
 CODE_SMELL
 e
-squid:S106K"9Replace this use of System.out or System.err by a logger.(Îï­şHÈ-RMAJORZ
+squid:S106K"9Replace this use of System.out or System.err by a logger.(Îï­şHñ-RMAJORZ
 CODE_SMELL
-e
-squid:S106J"9Replace this use of System.out or System.err by a logger.(Ö‹éîHÉ-RMAJORZ
-CODE_SMELL
-ƒsquid:S1149%"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(„¸‡“HÊ-RMAJORZ
-CODE_SMELL
-‹squid:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(§Õ‘ÚÿÿÿÿÿHË-RMINORZ
-CODE_SMELL
-e
-squid:S106N"9Replace this use of System.out or System.err by a logger.(ÛˆÚ÷HÌ-RMAJORZ
-CODE_SMELL
-j
-squid:S106M"9Replace this use of System.out or System.err by a logger.(‚æı–øÿÿÿÿHÍ-RMAJORZ
-CODE_SMELL
-Zsquid:S1604|"(Make this anonymous inner class a lambda(İËúßúÿÿÿÿHÎ-RMAJORZ
-CODE_SMELL
-[squid:S1604Œ"(Make this anonymous inner class a lambda(‰†÷üÿÿÿÿHÏ-RMAJORZ
-CODE_SMELL
-j
-squid:S106H"9Replace this use of System.out or System.err by a logger.(—Ñı×üÿÿÿÿHĞ-RMAJORZ
-CODE_SMELL
-j
-squid:S106X"9Replace this use of System.out or System.err by a logger.(ïÎÌıÿÿÿÿHÑ-RMAJORZ
-CODE_SMELL
-‹squid:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(½‚ÆÊûÿÿÿÿHÒ-RMINORZ
-CODE_SMELL
-jsquid:S1197"8Move the array designator from the variable to the type.(º ìıÿÿÿÿHÓ-RMINORZ
-CODE_SMELL
-wsquid:CallToDeprecatedMethodP"9Remove this use of "registerTempTable"; it is deprecated.(ıÒäHÔ-RMINORZ
-CODE_SMELL
-wsquid:CallToDeprecatedMethodQ"9Remove this use of "registerTempTable"; it is deprecated.(ÈÁâ¥HÕ-RMINORZ
-CODE_SMELL
-Zsquid:S1604d"(Make this anonymous inner class a lambda(À™ñùÿÿÿÿHÖ-RMAJORZ
-CODE_SMELL
-Vsquid:S1604„"(Make this anonymous inner class a lambda(›òªßH×-RMAJORZ
-CODE_SMELL
-†squid:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(„¸‡“HØ-RMINORZ
-CODE_SMELL
-ˆsquid:S1149#"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(½‚ÆÊûÿÿÿÿHÙ-RMAJORZ
+ƒsquid:S1149%"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(„¸‡“Hû-RMAJORZ
 CODE_SMELL
 d
-squid:S106G"9Replace this use of System.out or System.err by a logger.(’¿ÂHÚ-RMAJORZ
+squid:S106G"9Replace this use of System.out or System.err by a logger.(’¿ÂHö-RMAJORZ
+CODE_SMELL
+j
+squid:S106X"9Replace this use of System.out or System.err by a logger.(ïÎÌıÿÿÿÿHó-RMAJORZ
+CODE_SMELL
+e
+squid:S106J"9Replace this use of System.out or System.err by a logger.(Ö‹éîHú-RMAJORZ
+CODE_SMELL
+e
+squid:S106N"9Replace this use of System.out or System.err by a logger.(ÛˆÚ÷H„.RMAJORZ
+CODE_SMELL
+Zsquid:S1604t"(Make this anonymous inner class a lambda(óÃˆ•úÿÿÿÿHü-RMAJORZ
+CODE_SMELL
+‹squid:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(½‚ÆÊûÿÿÿÿH‚.RMINORZ
+CODE_SMELL
+ˆsquid:S1149#"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(½‚ÆÊûÿÿÿÿHÿ-RMAJORZ
+CODE_SMELL
+‹squid:S2293$"YReplace the type specification in this constructor call with the diamond operator ("<>").(§Õ‘ÚÿÿÿÿÿHò-RMINORZ
+CODE_SMELL
+†squid:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(„¸‡“Hï-RMINORZ
+CODE_SMELL
+wsquid:CallToDeprecatedMethodQ"9Remove this use of "registerTempTable"; it is deprecated.(ÈÁâ¥Hõ-RMINORZ
+CODE_SMELL
+Zsquid:S1604d"(Make this anonymous inner class a lambda(À™ñùÿÿÿÿHø-RMAJORZ
+CODE_SMELL
+Usquid:S1604l"(Make this anonymous inner class a lambda(ğ“ô‚Hı-RMAJORZ
+CODE_SMELL
+j
+squid:S106H"9Replace this use of System.out or System.err by a logger.(—Ñı×üÿÿÿÿHƒ.RMAJORZ
+CODE_SMELL
+wsquid:CallToDeprecatedMethodP"9Remove this use of "registerTempTable"; it is deprecated.(ıÒäH÷-RMINORZ
 CODE_SMELL
